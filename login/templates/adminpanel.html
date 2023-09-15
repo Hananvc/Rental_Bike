@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+Administrator
+{%endblock%}
+
+{% block content %}
+<div class="container-fluid ">
+<h1 class="text-center mt-2">User details </h1> 
+{% comment %} <a class="btn btn-secondary btn-small " href={% url 'adminedit' %}>Add user</a> {% endcomment %}
+
+<form class="my-4 navbar navbar-light bg-light" action="{% url 'search_username' %}">
+  <div class="input-group  mb-3">
+    <input type="search" name="search" class="form-control mr-sm-2" placeholder="Search username">
+    <button class="btn btn-outline-success" type="submit" id="button-addon2">Search</button>
+  </div>
+</form>
+</div>
+
+
+
+
+
+<div class='container my-3'>
+    <table class="table table-hover text-dark text-center table-striped table-bordered border-dark ">
+        <thead class="table-light">
+            <tr>
+              <th >ID</th>
+              <th >Username</th>
+              <th>E-mail</th>
+              <th >Name</th>
+              <th >Superuser</th>
+              <th> Updates </th>
+            </tr>
+          </thead>
+          {% for i in userdetails %}
+          <tbody >
+            <tr class="fw-bold">
+              <td >{{i.id}}</td>
+              <td>{{i.username}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.first_name}}</td>
+              <td>{{i.is_superuser}}</td>
+              <td>
+            {% if i.is_superuser%}
+                <div>
+                    <i><b> Admin </b></i>
+          
+                </div>
+            {% else %}
+         
+              <form class="d-inline" action="{% url 'deleteuser' i.id %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger btn-sm rounded-pill" value="Delete">
+                
+              </form>
+              <a href="{% url 'updateuser' i.id %}" class="text-center btn btn-secondary btn-sm rounded-pill">Update</a>
+                
+            {%endif%}
+              </td>
+            </tr>
+          </tbody>
+          {% endfor%}
+      </table>
+ </div>
+</div>
+
+
+  
+
+{%endblock%}

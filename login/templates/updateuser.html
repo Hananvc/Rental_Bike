@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Update Form 
+{%endblock%}
+
+
+{% block content %}
+<div class="row container-fluid">
+    <div class="col-sm-8 offset-2">
+        <h1 class="text-center mt-2">Update User</h1> 
+
+       
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" class="text-center btn btn-success" value="Update">
+        </form>
+    </div>
+
+</div>
+{%endblock%}
+ 
